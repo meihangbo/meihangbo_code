@@ -1,0 +1,91 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>select area</title>
+	<!-- 
+		<link rel="stylesheet" type="text/css" href="" />--> 
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+	
+	<style type="text/css">
+
+	</style>
+	<script type="text/javascript">
+		$(function(){
+			var _arr1= [{'code':'01','name':'西安市'}];
+			var _arr2= [
+				{'code':'01001','name':'雁塔区','pid':'01'},
+				{'code':'01002','name':'高新区','pid':'01'},
+				{'code':'01003','name':'碑林区','pid':'01'},
+				{'code':'01004','name':'新城区','pid':'01'},
+				{'code':'01005','name':'莲湖区','pid':'01'},
+				{'code':'01006','name':'未央区','pid':'01'},
+				{'code':'01007','name':'灞桥区','pid':'01'},
+				{'code':'01008','name':'长安区','pid':'01'},
+				{'code':'01009','name':'阎良区','pid':'01'},
+				{'code':'01010','name':'临潼区','pid':'01'}
+			];
+			var _arr3= [
+				{'code':'01001001','name':'雁塔路','pid':'01001'},
+				{'code':'01001002','name':'电子一路','pid':'01001'},
+				{'code':'01001003','name':'电子二路','pid':'01001'},
+				{'code':'01002001','name':'高新路','pid':'01002'},
+				{'code':'01002002','name':'高新一路','pid':'01002'},
+				{'code':'01002003','name':'高新二路','pid':'01002'},
+				{'code':'01003001','name':'南大街','pid':'01003'},
+				{'code':'01004001','name':'新城广场','pid':'01004'},
+				{'code':'01005001','name':'莲湖路','pid':'01005'},
+				{'code':'01006001','name':'未央路','pid':'01006'},
+				{'code':'01007001','name':'灞桥路','pid':'01007'},
+				{'code':'01008001','name':'长安路','pid':'01008'},
+				{'code':'01009001','name':'阎良路','pid':'01009'},
+				{'code':'01010001','name':'临潼路','pid':'01010'}
+			];
+
+			if(_arr1.length>0){
+				for(var i= 0;i<_arr1.length;i++){
+					$('#addressShi').append('<option value="'+_arr1[i].code+'">'+_arr1[i].name+'</option>');
+				}
+			}
+			$('#addressShi').on('change',function (){
+				$('#addressQu').html('<option value="0">请选择</option>');
+				$('#addressLu').html('<option value="0">请选择</option>');
+				if($(this).val() != 0){
+					for(var i= 0;i<_arr2.length;i++){
+						$('#addressQu').append('<option value="'+_arr2[i].code+'">'+_arr2[i].name+'</option>');
+					}
+				}
+			});
+
+			$('#addressQu').on('change',function (){
+				$('#addressLu').html('<option value="0">请选择</option>');
+				if($(this).val() != 0){
+					for(var i= 0;i<_arr3.length;i++){
+						if($(this).val()==_arr3[i].pid){
+							$('#addressLu').append('<option value="'+_arr3[i].code+'">'+_arr3[i].name+'</option>');
+						}
+						
+					}
+				}
+			});
+
+		});
+	</script>
+</head>
+	<body>
+		<div>
+			<!-- <select name="addressSheng" id="addressSheng">
+				<option value="0">请选择</option>
+			</select> -->
+			<select name="addressShi" id="addressShi">
+				<option value="0">请选择</option>
+			</select>
+			<select name="addressQu" id="addressQu">
+				<option value="0">请选择</option>
+			</select>
+			<select name="addressLu" id="addressLu">
+				<option value="0">请选择</option>
+			</select>
+		</div>
+	</body>
+</html>

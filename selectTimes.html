@@ -1,0 +1,223 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>select Times</title>
+	<!-- 
+		<link rel="stylesheet" type="text/css" href="" /> 
+		
+	-->
+	<script type="text/javascript" src="jquery-1.7.2.min.js"></script>
+	<style type="text/css">
+		.hourSpan,.timeSpan{padding:3px;display: inline-block;cursor:pointer;font-weight: 600;color:#000;}
+		.tchk{background: #FCF7CA;}
+		.schk{background: #FF9900;}
+	</style>
+	<script type="text/javascript">
+		
+		(function($){
+			var initBuild = function (){
+				$('#adcSelectTimesContent').empty();
+				var _adcTimesDIV = document.createElement('div');
+				_adcTimesDIV.id = 'adcTimes';
+				_adcTimesDIV.style.cssText  = 'display:none;width:163px;border:1px solid #ccc;background:url(data:image/gif;base64,R0lGODlhoACgAMQfAObm5vb29u3t7e/v7+Tk5PHx8d/f3/39/eLi4vr6+vj4+Ojo6PT09P7+/uvr6+7u7urq6uXl5fn5+efn5/f39+Hh4fPz8+zs7Pv7+/z8/PX19eDg4Onp6fDw8N3d3f///yH/C1hNUCBEYXRhWE1QPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4gPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNS41LWMwMTQgNzkuMTUxNDgxLCAyMDEzLzAzLzEzLTEyOjA5OjE1ICAgICAgICAiPiA8cmRmOlJERiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPiA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtbG5zOnhtcE1NPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvbW0vIiB4bWxuczpzdFJlZj0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL3NUeXBlL1Jlc291cmNlUmVmIyIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ0MgKFdpbmRvd3MpIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOkIwQzk2MjNDMDJGMzExRTM4RkU5QTJGNEFBRkE4QzA0IiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOkIwQzk2MjNEMDJGMzExRTM4RkU5QTJGNEFBRkE4QzA0Ij4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6QjBDOTYyM0EwMkYzMTFFMzhGRTlBMkY0QUFGQThDMDQiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6QjBDOTYyM0IwMkYzMTFFMzhGRTlBMkY0QUFGQThDMDQiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIi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) no-repeat scroll 0 5px #fff;overflow:hidden;';
+				$(_adcTimesDIV).click(function (_e){
+					_e.stopPropagation();
+					_e.cancelBubble = true;
+				});
+				var _hourDIV = document.createElement('div');
+				_hourDIV.id = 'adcTimesHour';
+				_hourDIV.style.cssText = 'padding:3px;';
+
+				var _timeDIV = document.createElement('div');
+				_timeDIV.id = 'adcTimesTime';
+				var nowHour = (new Date()).getHours();
+
+				for (var i = 0; i < 24; i++) {
+					var _hourSpan = document.createElement('span');
+					$(_hourSpan).attr('class','hourSpan');
+					$(_hourSpan).attr('id','hourSpan_'+(i<10?'0'+i:i));
+					$(_hourSpan).text(i<10?'0'+i:i);
+					/*if(nowHour == i){
+						$(_hourSpan).addClass("schk");
+					}*/
+					$(_hourSpan).mouseover(function (){
+						$('.hourSpan').removeClass("tchk")
+						$(this).addClass("tchk");
+					}).mouseout(function (){
+						$('.hourSpan').removeClass("tchk");
+					}).mousedown(function (_e){
+						$('.hourSpan').removeClass("schk")
+						$(this).addClass("schk");
+						_e.cancelBubble = true;
+						_e.stopPropagation();
+					});
+					$(_hourDIV).append(_hourSpan);
+				}
+				$(_adcTimesDIV).append(_hourDIV);
+
+				var _timeDIV = document.createElement('div');
+				_timeDIV.id = 'adcTimesTime';
+				_timeDIV.style.cssText = 'padding:3px;border-top:1px solid #ccc';
+				for (var i = 0; i < 60; i++) {
+					var _TimeSpan = document.createElement('span');
+					$(_TimeSpan).attr('class','timeSpan');
+					$(_TimeSpan).attr('id','timeSpan_'+(i<10?'0'+i:i));
+					$(_TimeSpan).text(i<10?'0'+i:i);
+					/*$(_TimeSpan).mouseover(function (){
+						$('.timeSpan').removeClass("tchk");
+						$(this).addClass("tchk");
+					}).mouseout(function (){
+						$('.timeSpan').removeClass("tchk");
+					}).mousedown(function (){
+						$('.timeSpan').removeClass("schk");
+						$(this).addClass("schk");
+					});*/
+					i += 4;
+					$(_timeDIV).append(_TimeSpan);
+				}
+				$(_adcTimesDIV).append(_timeDIV);
+				$('#adcSelectTimesContent').append($(_adcTimesDIV));
+			};
+			$.fn.extend({
+				adcSelectTimes : function (_this,_e,_PreviousId){
+					$(document).click(function(_e){
+						$(this).hideTimesDialog();
+					});
+					initBuild();
+					var _pid = false;
+					if(_PreviousId){
+						_pid =  $('#'+_PreviousId);
+					}
+					if(_pid && _pid.val().length>0){
+						$('span[id^="hourSpan_"]').each(function (){
+							if($(this).text()*1 < _pid.val().split(':')[0]*1){
+								$(this).css({'color':'#bbb','font-weight':100}).attr('disable','disable').unbind("mouseover mouseout mousedown");
+							}
+						});
+						if($(_this).val().split(':')[0]<_pid.val().split(':')[0]){
+							$(_this).val('');
+						}
+					}
+					var _pThis = this;
+					
+					var _thisVal = $(_this).val();
+					
+					//判断当前输入框有值
+					if(_thisVal.length>0){
+						$('#hourSpan_'+_thisVal.split(':')[0]).addClass("schk");
+						if(_PreviousId){
+							_pid =  $('#'+_PreviousId);
+							//前一个输入框有值
+							if(_pid && _pid.val().length>0){
+								//当前小时是否相等
+								if(_thisVal.split(':')[0] == _pid.val().split(':')[0]){
+									$('span[id^="timeSpan_"]').each(function (){
+										if($(this).text()*1 <= _pid.val().split(':')[1]*1){
+											$(this).css({'color':'#bbb','font-weight':100}).attr('disable','disable').unbind("mouseover mouseout mousedown");
+										}
+									});
+									if( _pid.val().split(':')[1]*1==55){
+										$(_this).val('');
+									}else{
+										$('#timeSpan_'+_thisVal.split(':')[1]).addClass("schk");
+									}
+								}
+							}else{
+								$('#timeSpan_'+_thisVal.split(':')[1]).addClass("schk");
+							}
+						}
+					}else{
+						if($('#hourSpan_'+(new Date()).getHours()).attr('disable') != 'disable'){
+							$('#hourSpan_'+(new Date()).getHours()).addClass("schk");
+						}else{
+							if(_PreviousId){
+								_pid =  $('#'+_PreviousId);
+							}
+							if(_pid && _pid.val().length>0){
+								$('#hourSpan_'+$('#'+_PreviousId).val().split(':')[0]).addClass("schk");
+								$('span[id^="timeSpan_"]').each(function (){
+									if($(this).text()*1 <= _pid.val().split(':')[1]*1){
+										$(this).css({'color':'#bbb','font-weight':100}).attr('disable','disable').unbind("mouseover mouseout mousedown");
+									}
+								});
+							}
+						}
+					}
+					//单击小时
+					$('span[id^="hourSpan_"]').bind('click',function (){
+						//判断当前选择的值和前一个值的比较
+						if(_PreviousId){
+							_pid =  $('#'+_PreviousId);
+							if(_pid && _pid.val().length>0){
+								//alert($(this).text()*1 > _pid.val().split(':')[0]*1);
+								if($(this).text()*1 > _pid.val().split(':')[0]*1){
+									$('span[id^="timeSpan_"]').each(function (){
+										$(this).css({'color':'#000','font-weight':600}).attr('disable','disable').bind("mouseover mouseout mousedown");
+									});	
+								}else if($(this).text()*1 == _pid.val().split(':')[0]*1){
+									$('span[id^="timeSpan_"]').each(function (){
+										if($(this).text()*1 <= _pid.val().split(':')[1]*1){
+											$(this).css({'color':'#bbb','font-weight':100}).attr('disable','disable').unbind("mouseover mouseout mousedown");
+										}
+									});
+								}
+							}
+						}
+					});
+					//单击分钟
+					$('#adcTimesTime > span').bind('click',function (_e){
+						if($('#adcTimesHour').find('.schk').length > 0 && $(this).attr('disable') != 'disable'){
+							$(_this).val($('#adcTimesHour').find('.schk').text()+':'+$(this).text()+':00');
+							_pThis.hideTimesDialog();
+						}
+					});
+					
+					//显示
+					$('#adcTimes').css({
+						position:'absolute',
+						top:$(this).offset().top+$(this).height()+6,
+						left:$(this).offset().left
+					}).show();
+					_e.stopPropagation();	
+				},
+				hideTimesDialog:function (){
+					$('#adcTimes').hide();
+					$('#adcSelectTimesContent').empty();
+				}
+			});
+		})(jQuery);
+		function adcSelectTimesDialog(_o,_e,_pid){
+			$(_o).adcSelectTimes(_o,_e,_pid);
+		}
+	</script>
+</head>
+	<body>
+		<table>
+			<tr>
+				<td width="100px" align="right">开始时间:</td>
+				<td><input type="text" class="times" value="" id="sTimes"  onclick="adcSelectTimesDialog(this,event)"/></td>
+				<td width="100px" class="times" align="right">结束时间:</td>
+				<td><input type="text" class="times" value="" id="eTimes"  onclick="adcSelectTimesDialog(this,event,'sTimes')"/></td>
+			</tr>
+			<tr>
+				<td align="right">开始时间:</td>
+				<td><input type="text" class="times" value="" id="sTimes1" onclick="adcSelectTimesDialog(this,event,'eTimes')" /></td>
+				<td align="right">结束时间:</td>
+				<td><input type="text" class="times" value="" id="eTimes1"  onclick="adcSelectTimesDialog(this,event,'sTimes1')" /></td>
+				<!-- onclick="adcSelectTimesDialog(this)"
+				onclick="adcSelectTimesDialog(this)"
+				onclick="adcSelectTimesDialog(this)"
+				onclick="adcSelectTimesDialog(this)"
+				onblur="$(this).hideTimesDialog()" onclick="" -->
+				
+			</tr>
+		</table>
+		<select name="" id="">
+			<option value="">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</option>
+			<option value="">bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb</option>
+			<option value="">ccccccccccccccccccccccccccccccccccccccccccccccccccccccc</option>
+		</select>
+		<div id="adcSelectTimesContent"></div>
+	</body>
+</html>
