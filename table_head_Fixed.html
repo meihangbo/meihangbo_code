@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>table_head_Fixed</title>
+	<!-- 
+		<link rel="stylesheet" type="text/css" href="" /> -->
+		<script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.2.min.js"></script>
+		<style type="text/css">
+			html,body{padding:0;margin:0;}
+			*{font-size:12px;}
+			
+			.sCenter{text-align:center;}
+			.sRight{text-align:right;}
+			.noborder_top{border-top-width:0;}
+			.myTableDiv{width:1017px;/* background:#EFDFB5; */ margin:20px auto 0px auto;overflow:hidden;}
+			.headFixedTableHead,.headFixedTableBody{width:100%;border-collapse:collapse;}
+				.fixedThead{background:#ccc;height:40px;border:1px solid #f00;}
+					.fixedThead th{border:1px solid #f00;font-weight:800;padding-left:5px;padding-right:5px;}
+				.fixedTBody{border:1px solid #FF9900;}
+					.fixedTBody td{height:30px;border:1px solid #FF9900;padding-left:5px;padding-right:5px;}
+		</style>
+		<script type="text/javascript">
+			$(function (){
+				var _str = '';
+				for (var i = 1; i <100; i++) {
+					_str += '<tr><td width="30px"><input type="checkbox" /></td><td class="sCenter" width="60px">'+i+'</td><td>测试名称'+i+'</td><td class="sCenter" width="150px">2013-06-24 10:30:10</td><td class="sRight" width="80px">10'+i+'.25</td><td class="sCenter" width="80px">';
+					if(i%2){
+						_str += '审核中</td><td class="sCenter" width="150px">详细 | 审核 | 删除</td></tr>';
+					}else{
+						_str += '审核通过</td><td class="sCenter" width="150px">详细 | 删除</td></tr>';
+					}
+				};
+				$('#fixedTBodyTag').append(_str);
+			});
+		</script>
+	</head>
+	<body>
+		<div class="myTableDiv">
+			<div style="width:1000px;overflow:hidden;">
+				<table class="headFixedTableHead" id="headFixedTableHead" cellspacing="0" cellpadding="0">
+					<thead class="fixedThead">
+						<tr>
+							<th width="30px"><input type="checkbox" /></th>
+							<th width="60px">序号</th>
+							<th>名称</th>
+							<th width="150px">时间</th>
+							<th width="80px">金额</th>
+							<th width="80px">状态</th>
+							<th width="150px">操作</th>
+						</tr>
+					</thead>
+				</table>
+			</div>
+			<div style="width:1017px;height:300px;overflow:auto;">
+				<table class="headFixedTableBody" id="headFixedTableBody" cellspacing="0" cellpadding="0">
+					<tbody class="fixedTBody" id="fixedTBodyTag" style="overflow:scroll">
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</body>
+</html>
