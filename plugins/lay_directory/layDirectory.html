@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>layDirectory</title>
+    <link rel="stylesheet" type="text/css" href="../../assets/layui/css/layui.css">
+    <style type="text/css">
+      html,body{height:100%;}
+      .main{width:100%;height:100%;}
+      .main-wrapper{position:relative;height:100%;}
+      .main-cont{position:relative;height:100%;margin-right:210px;background-color:#fefefe;}
+      .main-cont-nav{position:absolute;right:0;top:0;width:200px;height:100%;background-color:#ddd}
+      .main-cn-mod{position:relative;width:100%;overflow:auto;}
+
+      /*
+      * doc-list ******************************/
+      .doc-list{padding:50px 20px;}
+      .doc-item{}
+      .doc-txt{padding: 0 20px;}
+
+    </style>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-wrapper">
+        <div class="main-cont">
+          <div class="doc-list">
+            <div class="doc-item">
+              <fieldset class="layui-elem-field layui-field-title site-title" >
+                <legend title="快速使用" lay-dir-filter="directory">快速使用</legend>
+              </fieldset>
+              <div class="doc-txt">
+                <p>创建一个table实例最简单的方式是，在页面放置一个元素 <em>&lt;table id="demo"&gt;&lt;/table&gt;</em>，然后通过 <em>table.render()</em> 方法指定该容器，</p>
+                <p><img src="img/1.png" alt=""></p>
+              </div>
+            </div><!-- doc-item -->
+            <div class="doc-item">
+              <fieldset class="layui-elem-field layui-field-title site-title">
+                <legend title="渲染方式" lay-dir-filter="directory">渲染方式</legend>
+              </fieldset>
+              <div class="doc-txt">
+                <p><img src="img/2.png" alt=""></p>
+              </div>
+            </div><!-- doc-item -->
+            <div class="doc-item">
+              <fieldset class="layui-elem-field layui-field-title site-title">
+                <legend title="方法渲染" lay-dir-filter="directory">方法渲染</legend>
+              </fieldset>
+              <div class="doc-txt">
+                <p><img src="img/3.png" alt=""></p>
+              </div>
+            </div><!-- doc-item -->
+            <div class="doc-item">
+              <fieldset class="layui-elem-field layui-field-title site-title">
+                <legend title="自动渲染" lay-dir-filter="directory">自动渲染</legend>
+              </fieldset>
+              <div class="doc-txt">
+                <p><img src="img/4.png" alt=""></p>
+              </div>
+            </div><!-- doc-item -->
+            <div class="doc-item">
+              <fieldset class="layui-elem-field layui-field-title site-title">
+                <legend title="基础参数" lay-dir-filter="directory">基础参数</legend>
+              </fieldset>
+              <div class="doc-txt">
+                <p><img src="img/5.png" alt=""></p>
+              </div>
+            </div><!-- doc-item -->
+            <div class="doc-item">
+              <fieldset class="layui-elem-field layui-field-title site-title">
+                <legend title="表头参数" lay-dir-filter="directory">表头参数</legend>
+              </fieldset>
+              <div class="doc-txt">
+                <p><img src="img/6.png" alt=""></p>
+              </div>
+            </div><!-- doc-item -->
+          </div><!-- doc-list -->
+        </div><!-- main-cont -->
+        <div class="main-cont-nav">
+          <div class="main-cn-mod">
+            <ul class="lay-directory" id="layDir">
+              <li class="lay-ditem lay-ditem-active"><a class="lay-ditem-link lay-ditem-link-1" href="javascript:;" title="快速使用"><span>快速使用</span></a></li>
+              <li class="lay-ditem"><a class="lay-ditem-link" href="javascript:;" title="渲染方式"><span>渲染方式</span></a></li>
+              <li class="lay-ditem"><a class="lay-ditem-link lay-ditem-link-2" href="javascript:;" title="方法渲染"><span>方法渲染</span></a></li>
+              <li class="lay-ditem"><a class="lay-ditem-link lay-ditem-link-2" href="javascript:;" title="自动渲染"><span>自动渲染</span></a></li>
+              <li class="lay-ditem"><a class="lay-ditem-link" href="javascript:;" title="基础参数"><span>基础参数</span></a></li>
+              <li class="lay-ditem"><a class="lay-ditem-link" href="javascript:;" title="表头参数"><span>表头参数</span></a></li>
+            </ul><!-- lay-directory -->
+          </div><!-- main-cn-mod -->
+        </div><!-- main-cont-nav -->
+      </div><!-- main-wrapper -->
+    </div><!-- main -->
+    <script type="text/javascript" src="../../assets/layui/layui.js"></script>
+    <script type="text/javascript">
+      layui.config({
+        base: ''
+      }).extend({
+        layDirectory: 'layDirectory/layDirectory'
+      });
+
+
+      layui.use(['jquery', 'layDirectory'], function (){
+        var $ = layui.jquery,
+          layDirectory = layui.layDirectory;
+
+        console.log(layDirectory);
+
+        layDirectory.render({
+          elem: '#layDir'
+        });
+      });
+    </script>
+  </body>
+</html>

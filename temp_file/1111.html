@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>仿百度百科右侧导航代码jquery插件/</title>
+    <style>
+        html,body,h3{ margin: 0; padding: 0;}
+        h2,h3{ height: 500px; margin-bottom: 10px; border: #ddd solid 1px;}
+        li{ list-style: none; margin: 0; vertical-align: top;}
+        ul{ margin: 0; padding: 0;}
+
+        /*这是百科右侧导航代码的样式表*/
+        .directory-nav{position: fixed; right:50px; bottom:40px; padding: 12px 0 20px 32px; display: none;}
+        .directory-nav li{height: 34px;line-height: 34px;  position: relative;}
+        .directory-nav li a{}
+        .directory-nav .l1{ }
+        .directory-nav .l2{ text-indent:0.6em;}
+        .directory-nav .l1 a{font-size: 16px;}
+        .directory-nav .l2 a{font-size: 14px;}
+        .directory-nav,.directory-nav a{ color: #666;}
+        .directory-nav .cur a{ color: red;}
+
+        .directory-nav .line{ position: absolute; left:4px; top: 5px; bottom: 5px; z-index: 1; width: 2px; background: #ddd;}
+        .directory-nav .c-top,.directory-nav .c-bottom{ position: absolute; left: 0; z-index: 2;
+            display: block; width: 10px; height: 10px; font-size: 0; line-height: 0;
+            background: url(images/directory-nav.png) no-repeat 0 -69px;
+        }
+        .directory-nav .c-dot{
+            position: absolute; left:-32px; top: 50%; z-index: 2; margin-top: -5px;
+            display: block; width: 10px; height: 10px; font-size: 0; line-height: 0;
+            background: url(images/directory-nav.png) no-repeat -275px 0;
+        }
+
+        .directory-nav .c-top{ top: 0}
+        .directory-nav .c-bottom{ bottom: 0}
+        .directory-nav .cur-tag{
+            position: absolute; left: -1px; top:30px; z-index: 5; margin-top: -6px;
+            display: block; width: 19px; height: 13px; font-size: 0; line-height: 0;
+            background: url(images/directory-nav.png) no-repeat -271px -37px;
+            -webkit-transition:top .3s ease 0s;
+            transition:top .3s ease 0s;
+        }
+
+    </style>
+</head>
+<body style="padding: 40px;">
+
+<div style=" padding-bottom:20px;line-height: 2;">
+<h1>向下滚动，观察右下角 仿百度百科右侧导航代码jquery插件</h1>
+<h2>标题一</h2>
+    <h3>标题一-1</h3>
+    <h3>标题一-2</h3>
+    <h3>标题一-3</h3>
+<h2>标题二</h2>
+    <h3>标题一-1</h3>
+    <h3>标题一-2</h3>
+    <h3>标题一-3</h3>
+<h2>标题三</h2>
+<h2>标题四</h2>
+<h2>标题五</h2>
+<h2>标题六</h2>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script>
+    /*
+    * 懒人建站 http://www.51xuediannao.com/
+    * 仿百度百科右侧导航代码 - 页面目录结构导航 v0.01
+    * 只写了两级，无限级别也可以，是逻辑上的级别，html结构全是同一级别
+    * 滑标动画用的css3过渡动画，不支持的浏览器就没动画效果了
+    * 和百度百科比起来还是比较弱，没有实现右边也可以滚动的功能
+    */
+    function DirectoryNav($h,config){
+        this.opts = $.extend(true,{
+            scrollThreshold:0.5,    //滚动检测阀值 0.5在浏览器窗口中间部位
+            scrollSpeed:700,        //滚动到指定位置的动画时间
+            scrollTopBorder:500,    //滚动条距离顶部多少的时候显示导航，如果为0，则一直显示
+            easing: 'swing',        //不解释
+            delayDetection:200,     //延时检测，避免滚动的时候检测过于频繁
+            scrollChange:function(){}
+        },config);
+        this.$win = $(window);
+        this.$h = $h;
+        this.$pageNavList = "";
+        this.$pageNavListLis ="";
+        this.$curTag = "";
+        this.$pageNavListLiH = "";
+        this.offArr = [];
+        this.curIndex = 0;
+        this.scrollIng = false;
+        this.init();
+    }
+
+    DirectoryNav.prototype = {
+        init:function(){
+            this.make();
+            this.setArr();
+            this.bindEvent();
+        },
+        make:function(){
+            //生成导航目录结构,这是根据需求自己生成的。如果你直接在页面中输出一个结构那也挺好不用 搞js
+            $("body").append('<div class="directory-nav" id="directoryNav"><ul></ul><span class="cur-tag"></span><span class="c-top"></span><span class="c-bottom"></span><span class="line"></span></div>>');
+            var $hs = this.$h,
+                $directoryNav = $("#directoryNav"),
+                temp = [],
+                index1 = 0,
+                index2 = 0;
+            $hs.each(function(index){
+                var $this = $(this),
+                        text = $this.text();
+                if(this.tagName.toLowerCase()=='h2'){
+                    index1++;
+                    if(index1%2==0) index2 = 0;
+                    temp.push('<li class="l1"><span class="c-dot"></span>'+index1+'. <a class="l1-text">'+text+'</a></li>');
+                }else{
+                    index2++;
+                    temp.push('<li class="l2">'+index1+'.'+index2+' <a class="l2-text">'+text+'</a></li>');
+
+                }
+            });
+            $directoryNav.find("ul").html(temp.join(""));
+
+            //设置变量
+            this.$pageNavList = $directoryNav;
+            this.$pageNavListLis = this.$pageNavList.find("li");
+            this.$curTag = this.$pageNavList.find(".cur-tag");
+            this.$pageNavListLiH = this.$pageNavListLis.eq(0).height();
+
+            if(!this.opts.scrollTopBorder){
+                this.$pageNavList.show();
+            }
+        },
+        setArr:function(){
+            var This = this;
+            this.$h.each(function(){
+                var $this = $(this),
+                    offT = Math.round($this.offset().top);
+                This.offArr.push(offT);
+            });
+        },
+        posTag:function(top){
+            this.$curTag.css({top:top+'px'});
+        },
+        ifPos:function(st){
+            var offArr = this.offArr;
+            //console.log(st);
+            var windowHeight = Math.round(this.$win.height() * this.opts.scrollThreshold);
+            for(var i=0;i<offArr.length;i++){
+                if((offArr[i] - windowHeight) < st) {
+                    var $curLi = this.$pageNavListLis.eq(i),
+                        tagTop = $curLi.position().top;
+                    $curLi.addClass("cur").siblings("li").removeClass("cur");
+                    this.curIndex = i;
+                    this.posTag(tagTop+this.$pageNavListLiH*0.5);
+                    //this.curIndex = this.$pageNavListLis.filter(".cur").index();
+                    this.opts.scrollChange.call(this);
+                }
+            }
+        },
+        bindEvent:function(){
+            var This = this,
+                show = false,
+                timer = 0;
+            this.$win.on("scroll",function(){
+                var $this = $(this);
+                clearTimeout(timer);
+                timer = setTimeout(function(){
+                    This.scrollIng = true;
+                    if($this.scrollTop()>This.opts.scrollTopBorder){
+                        if(!This.$pageNavListLiH) This.$pageNavListLiH = This.$pageNavListLis.eq(0).height();
+                        if(!show){
+                            This.$pageNavList.fadeIn();
+                            show = true;
+                        }
+                        This.ifPos( $(this).scrollTop() );
+                    }else{
+                        if(show){
+                            This.$pageNavList.fadeOut();
+                            show = false;
+                        }
+                    }
+                },This.opts.delayDetection);
+            });
+
+            this.$pageNavList.on("click","li",function(){
+                var $this = $(this),
+                    index = $this.index();
+                This.scrollTo(This.offArr[index]);
+            })
+        },
+        scrollTo: function(offset,callback) {
+            var This = this;
+            $('html,body').animate({
+                scrollTop: offset
+            }, this.opts.scrollSpeed, this.opts.easing, function(){
+                This.scrollIng = false;
+                //修正弹两次回调 蛋疼
+                callback && this.tagName.toLowerCase()=='body' && callback();
+            });
+        }
+    };
+
+    //实例化
+    var directoryNav = new DirectoryNav($("h2,h3"),{
+        scrollTopBorder:0   //滚动条距离顶部多少的时候显示导航，如果为0，则一直显示
+    });
+
+</script>
+</body>
+</html>
