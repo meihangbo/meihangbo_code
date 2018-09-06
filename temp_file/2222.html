@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>menuScroll</title>
+<style>
+	*{
+	  margin: 0;
+	  padding: 0;
+	}
+	body{
+	  font-family: -apple-system,Helvetica,sans-serif;
+	}
+	li{
+	  list-style: none;
+	}
+	.header{
+		position: fixed;
+		left: 0;
+		right: 0;
+		top: 0;
+		z-index: 100;
+		height: 1rem;
+		line-height: 1rem;
+		text-align: center;
+		font-size: 0.32rem;
+		background: #fff;
+	}
+	.footer{
+		top: auto;
+		bottom: 0;
+	}
+	.menu{
+		position: absolute;
+		left: 0;
+		right: 0;
+		top: 1rem;
+		bottom: 1rem;
+		display: flex;
+		border-top: 1px solid green;
+		border-bottom: 1px solid green;
+		box-sizing: border-box;
+	}
+	.menu-left{
+		flex: 0 0 1.2rem;
+		height: 100%;
+		overflow: hidden;
+		overflow-y: auto;
+		-webkit-overflow-scrolling: touch;
+		border-right: 1px solid green;
+		box-sizing: border-box;
+	}
+	.menu-left .menu-left-li{
+		line-height: 0.9rem;
+		font-size: 0.3rem;
+		color: #333;
+	}
+	.menu-left .menu-left-li.on{
+		background: orange;
+		color: #fff;
+	}
+	.menu-right{
+		flex: 1;
+		height: 100%;
+		overflow: hidden;
+		overflow-y: auto;
+		-webkit-overflow-scrolling: touch;
+	}
+	.menu-right li{
+		font-size: 0.6rem;
+	}
+	</style>
+</head>
+<body>
+<a href="classification.html"><header class="header">点击查看右侧非联动效果</header></a>
+<div class="menu">
+<div class="menu-left" id="menuLeft">
+<ul class="menu-left-ul">
+<li class="menu-left-li on">菜单1</li>
+<li class="menu-left-li">菜单2</li>
+<li class="menu-left-li">菜单3</li>
+<li class="menu-left-li">菜单4</li>
+<li class="menu-left-li">菜单5</li>
+<li class="menu-left-li">菜单6</li>
+<li class="menu-left-li">菜单7</li>
+<li class="menu-left-li">菜单8</li>
+<li class="menu-left-li">菜单9</li>
+<li class="menu-left-li">菜单10</li>
+<li class="menu-left-li">菜单11</li>
+<li class="menu-left-li">菜单12</li>
+<li class="menu-left-li">菜单13</li>
+<li class="menu-left-li">菜单14</li>
+<li class="menu-left-li">菜单15</li>
+<li class="menu-left-li">菜单16</li>
+<li class="menu-left-li">菜单17</li>
+<li class="menu-left-li">菜单18</li>
+<li class="menu-left-li">菜单19</li>
+<li class="menu-left-li">菜单20</li>
+</ul>
+</div>
+<div class="menu-right" id="menuRight">
+<div class="menu-right-content">
+<div class="content-item">
+<div class="title">模块1</div>
+<ul>
+<li>内容1</li>
+<li>内容1</li>
+<li>内容1</li>
+<li>内容1</li>
+<li>内容1</li>
+<li>内容1</li>
+<li>内容1</li>
+<li>内容1</li>
+<li>内容1</li>
+</ul>
+</div>
+<div class="content-item">
+<div class="title">模块2</div>
+<ul>
+<li>内容2</li>
+<li>内容2</li>
+<li>内容2</li>
+<li>内容2</li>
+<li>内容2</li>
+<li>内容2</li>
+<li>内容2</li>
+<li>内容2</li>
+<li>内容2</li>
+</ul>
+</div>
+<div class="content-item">
+<div class="title">模块3</div>
+<ul>
+<li>内容2</li>
+<li>内容2</li>
+<li>内容2</li>
+<li>内容2</li>
+<li>内容2</li>
+<li>内容2</li>
+<li>内容2</li>
+<li>内容2</li>
+<li>内容2</li>
+</ul>
+</div>
+<div class="content-item">
+<div class="title">模块4</div>
+<ul>
+<li>内容2</li>
+<li>内容2</li>
+<li>内容2</li>
+<li>内容2</li>
+<li>内容2</li>
+<li>内容2</li>
+<li>内容2</li>
+<li>内容2</li>
+<li>内容2</li>
+</ul>
+</div>
+<div class="content-item">
+<div class="title">模块5</div>
+<ul>
+<li>内容2</li>
+<li>内容2</li>
+<li>内容2</li>
+ <li>内容2</li>
+<li>内容2</li>
+<li>内容2</li>
+<li>内容2</li>
+<li>内容2</li>
+<li>内容2</li>
+</ul>
+</div>
+<div class="content-item">
+<div class="title">模块6</div>
+<ul>
+<li>内容2</li>
+<li>内容2</li>
+<li>内容2</li>
+<li>内容2</li>
+<li>内容2</li>
+<li>内容2</li>
+<li>内容2</li>
+<li>内容2</li>
+<li>内容2</li>
+</ul>
+</div>
+<div class="content-item">
+<div class="title">模块7</div>
+<ul>
+<li>内容2</li>
+<li>内容2</li>
+
+</ul>
+</div>
+<div class="content-item">
+<div class="title">模块8</div>
+<ul>
+<li>内容2</li>
+<li>内容2</li>
+<li>内容2</li>
+<li>内容2</li>
+<li>内容2</li>
+<li>内容2</li>
+<li>内容2</li>
+<li>内容2</li>
+<li>内容2</li>
+</ul>
+</div>
+<div class="content-item">
+<div class="title">模块9</div>
+<ul>
+<li>内容2</li>
+<li>内容2</li>
+<li>内容2</li>
+<li>内容2</li>
+<li>内容2</li>
+<li>内容2</li>
+<li>内容2</li>
+<li>内容2</li>
+<li>内容2</li>
+</ul>
+</div>
+<div class="content-item">
+<div class="title">模块10</div>
+<ul>
+<li>内容2</li>
+<li>内容2</li>
+<li>内容2</li>
+<li>内容2</li>
+<li>内容2</li>
+<li>内容2</li>
+<li>内容2</li>
+<li>内容2</li>
+<li>内容2</li>
+</ul>
+</div>
+<div class="content-item">
+<div class="title">模块11</div>
+<ul>
+
+<li>内容2</li>
+</ul>
+</div>
+<div class="content-item">
+<div class="title">模块12</div>
+<ul>
+<li>内容2</li>
+<li>内容2</li>
+<li>内容2</li>
+<li>内容2</li>
+<li>内容2</li>
+<li>内容2</li>
+<li>内容2</li>
+<li>内容2</li>
+<li>内容2</li>
+</ul>
+</div>
+<div class="content-item">
+<div class="title">模块13</div>
+<ul>
+<li>内容2</li>
+<li>内容2</li>
+<li>内容2</li>
+<li>内容2</li>
+<li>内容2</li>
+<li>内容2</li>
+<li>内容2</li>
+<li>内容2</li>
+<li>内容2</li>
+</ul>
+</div>
+<div class="content-item">
+<div class="title">模块14</div>
+<ul>
+<li>内容2</li>
+<li>内容2</li>
+<li>内容2</li>
+<li>内容2</li>
+<li>内容2</li>
+<li>内容2</li>
+<li>内容2</li>
+<li>内容2</li>
+<li>内容2</li>
+</ul>
+</div>
+<div class="content-item">
+<div class="title">模块15</div>
+<ul>
+<li>内容2</li>
+<li>内容2</li>
+<li>内容2</li>
+<li>内容2</li>
+<li>内容2</li>
+<li>内容2</li>
+<li>内容2</li>
+<li>内容2</li>
+<li>内容2</li>
+</ul>
+</div>
+<div class="content-item">
+<div class="title">模块16</div>
+<ul>
+<li>内容2</li>
+<li>内容2</li>
+<li>内容2</li>
+<li>内容2</li>
+<li>内容2</li>
+<li>内容2</li>
+<li>内容2</li>
+<li>内容2</li>
+<li>内容2</li>
+</ul>
+</div>
+<div class="content-item">
+<div class="title">模块17</div>
+<ul>
+<li>内容2</li>
+<li>内容2</li>
+<li>内容2</li>
+<li>内容2</li>
+<li>内容2</li>
+<li>内容2</li>
+<li>内容2</li>
+<li>内容2</li>
+<li>内容2</li>
+</ul>
+</div>
+<div class="content-item">
+<div class="title">模块18</div>
+<ul>
+<li>内容2</li>
+<li>内容2</li>
+<li>内容2</li>
+<li>内容2</li>
+<li>内容2</li>
+<li>内容2</li>
+<li>内容2</li>
+<li>内容2</li>
+<li>内容2</li>
+</ul>
+</div>
+<div class="content-item">
+<div class="title">模块19</div>
+<ul>
+<li>内容2</li>
+<li>内容2</li>
+<li>内容2</li>
+<li>内容2</li>
+<li>内容2</li>
+<li>内容2</li>
+<li>内容2</li>
+<li>内容2</li>
+<li>内容2</li>
+</ul>
+</div>
+<div class="content-item">
+<div class="title">模块20</div>
+<ul>
+<li>内容2</li>
+<li>内容2</li>
+<li>内容2</li>
+<li>内容2</li>
+<li>内容2</li>
+<li>内容2</li>
+<li>内容2</li>
+<li>内容2</li>
+<li>内容2</li>
+<li>内容2</li>
+<li>内容2</li>
+<li>内容2</li>
+<li>内容2</li>
+<li>内容2</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<footer class="header footer">我是底部菜单</footer>
+
+<script>
+		;(function() {
+			function change() {
+				var font = document.documentElement.clientWidth / 375 * 50;
+				document.documentElement.style.fontSize = font + 'px';
+			};
+			window.addEventListener('resize', change, false);
+			change();
+		})();
+		// rem 单位换算 *不可删除
+    </script>
+<script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+<script type="text/javascript">
+    	$('#menuLeft .menu-left-li').click(function (e) {
+    		var i = $(this).index();
+    		var t = $('#menuRight').scrollTop() - $(window).width()/ 375 * 50 * 1;
+
+    		$('#menuLeft .menu-left-li').eq(i).addClass('on').siblings().removeClass('on');
+    		$('#menuRight').scrollTop( $('#menuRight .content-item').eq(i).offset().top + t);
+    	})
+    	//左边联动
+
+		var heightArr = [];
+    	for (var i = 0; i < $('#menuRight .content-item').length; i++) {
+    		heightArr.push($('#menuRight .content-item').eq(i).offset().top);
+    	}
+    	// 元素相对窗口顶部偏移量存成数组
+
+
+  		$('#menuRight').scroll(function () {
+    		var t = $(this).scrollTop();
+
+    		for (var i in heightArr) {
+		        if ((t + $(window).width()/ 375 * 50 *1) >= heightArr[i]){
+			       $('#menuLeft .menu-left-li').eq(i).addClass('on').siblings().removeClass('on');
+			    }
+	        }
+
+     		$('#menuLeft').stop().animate({
+     			scrollTop: $('#menuLeft .menu-left-li').height() * ($('#menuLeft .menu-left-li.on').index()+0.5) - ($('#menuLeft').height()/2)
+    		}, 200)
+    		// 左侧按钮位置垂直居中
+    	})
+    	//右边联动
+    </script>
+</body>
+</html>

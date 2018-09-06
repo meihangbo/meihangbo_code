@@ -1,0 +1,194 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<style>
+
+  body{ margin:0; padding:0;}
+
+  .main{ width:100%; height:auto;}
+
+  .main div{ width:100%;}
+
+  #float01{ height:930px; background:#004}
+
+  #float02{ height:900px; background:#00f}
+
+  #float03{ height:980px; background:#0ff}
+
+  #float04{ height:930px; background:#0ad}
+
+  #float05{ height:960px; background:#0d0}
+
+  #float06{ height:970px; background:#0f0}
+
+  #float07{ height:900px; background:#dd4}
+
+  div.floatCtro{ width:60px; height:350px; position:absolute; right:0; top:0; z-index:100}
+
+  div.floatCtro p{width:60px; text-align:center; height:40px; line-height:40px; font-family:'微软雅黑'; font-size:14px; color:#676767; margin:0; padding:0; cursor:pointer; background:#fff;}
+
+  div.floatCtro a{ display:inline-block; display:none; width:60px; height:60px; margin:10px 0 0 0; background:#fff; color:#000;  vertical-align:middle; cursor:pointer;}
+
+  div.floatCtro a span{ display:block; width:28px; height:44px; line-height:22px;  font-family:'微软雅黑'; font-size:14px; line-height:22px; text-align:center; margin:8px 16px; _margin:-10px 0 0 16px;}
+
+  div.floatCtro a:hover{ background:#000; color:#fff; zoom:1;}
+
+  div.floatCtro p:hover{ background:#c40000; color:#fff;}
+
+  div.floatCtro p.cur{ background:#c40000; color:#fff;}
+
+</style>
+<script>
+
+   $(function(){
+
+	   var AllHet = $(window).height();
+
+	   var mainHet= $('.floatCtro').height();
+
+	   var fixedTop = (AllHet - mainHet)/2
+
+	   $('div.floatCtro').css({top:fixedTop+'px'}); 
+
+	   $('div.floatCtro p').click(function(){
+
+			var ind = $('div.floatCtro p').index(this)+1;
+
+			var topVal = $('#float0'+ind).offset().top;
+
+			$('body,html').animate({scrollTop:topVal},1000)
+
+		})
+
+		$('div.floatCtro a').click(function(){
+
+			$('body,html').animate({scrollTop:0},1000)
+
+			})
+
+	   $(window).scroll(scrolls)
+
+	   scrolls()
+
+	   function scrolls(){
+
+		   var f1,f2,f3,f4,f5,f6,f7,bck;
+
+		   var fixRight = $('div.floatCtro p');
+
+		   var blackTop = $('div.floatCtro a')
+
+		   var sTop = $(window).scrollTop();
+
+		   fl = $('#float01').offset().top;
+
+		   f2 = $('#float02').offset().top;
+
+		   f3 = $('#float03').offset().top;
+
+		   f4 = $('#float04').offset().top;
+
+		   f5 = $('#float05').offset().top;
+
+		   f6 = $('#float06').offset().top;
+
+		   f7 = $('#float07').offset().top;
+
+		   var topPx = sTop+fixedTop
+
+		    $('div.floatCtro').stop().animate({top:topPx});
+
+			
+
+		   if(sTop<=f2-100){
+
+			   blackTop.fadeOut(300).css('display','none')
+
+			   }
+
+		   else{
+
+			   blackTop.fadeIn(300).css('display','block')
+
+			   }
+
+		   
+
+		   if(sTop>=fl){
+
+			   fixRight.eq(0).addClass('cur').siblings().removeClass('cur');
+
+			   }
+
+		   if(sTop>=f2-100){
+
+			   fixRight.eq(1).addClass('cur').siblings().removeClass('cur');
+
+			   }
+
+		   if(sTop>=f3-100){
+
+			   fixRight.eq(2).addClass('cur').siblings().removeClass('cur');
+
+			   }
+
+		   if(sTop>=f4-100){
+
+			   fixRight.eq(3).addClass('cur').siblings().removeClass('cur');
+
+			   }
+
+		   if(sTop>=f5-100){
+
+			   fixRight.eq(4).addClass('cur').siblings().removeClass('cur');
+
+			   }
+
+		   if(sTop>=f6-100){
+
+			   fixRight.eq(5).addClass('cur').siblings().removeClass('cur');
+
+			   }
+
+		   if(sTop>=f7-100){
+
+			   fixRight.eq(6).addClass('cur').siblings().removeClass('cur');
+
+			   } 
+
+		
+
+	     }
+
+	   })
+
+</script>
+<title>test</title>
+</head>
+<body>
+<div class="main">
+<div id="float01" class="cur"></div>
+<div id="float02"></div>
+<div id="float03"></div>
+<div id="float04"></div>
+<div id="float05"></div>
+<div id="float06"></div>
+<div id="float07"></div>
+<div class="floatCtro">
+<p>楼层一</p>
+<p>楼层二</p>
+<p>楼层三</p>
+<p>楼层四</p>
+<p>楼层五</p>
+<p>楼层六</p>
+<p>楼层七</p>
+<a>
+<font style="width:60px; height:1px; display:block"></font>
+<span>返回顶部</span>
+</a>
+</div>
+</div>
+</body>
+</html>
