@@ -2,7 +2,7 @@
 * @Author: meihangbo
 * @Date:   2018-09-05 09:49:32
 * @Last Modified by:   meihangbo
-* @Last Modified time: 2018-09-05 16:33:22
+* @Last Modified time: 2018-09-06 15:50:07
 */
 
 layui.define(['jquery'], function (exports){
@@ -45,11 +45,19 @@ layui.define(['jquery'], function (exports){
   Class.prototype.config = {
 
   };
+  Class.prototype.getPosArr = function (){
+    var arr = []
+    $('[lay-dir-filter="directory"]').each(function (){
+      arr.push($(this).offset().top);
+    });
+     return arr;
+  };
   Class.prototype.render = function(){
     var that = this , opts = that.config,
       othis = $(opts.elem),
       item = othis.find(ITEM),
-      _links = othis.find(ILINK);
+      _links = othis.find(ILINK),
+      posArr = that.getPosArr();
 
     _links.on('click', function (){
       var _that = $(this);
@@ -59,7 +67,20 @@ layui.define(['jquery'], function (exports){
       var _dirEL = $('[lay-dir-filter="directory"][title="'+_that.text()+'"]'),
       _offset = _dirEL.offset();
       _offset&&$('html,body').animate({ scrollTop: _offset.top }, 500);
-      //$('html,body').animate({ scrollTop: (_dirEL.offset()).top }, 500);
+    });
+
+    //
+
+    //监听window scroll
+    $(window).on('scroll', function (){
+      var $this = $(this), _tpos = $this.scrollTop();
+
+      for(var i in posArr){
+        //if(_tpos + $(window).width()/ 375 * 50 *1 >= posArr[i]){
+        if(_tpos >= posArr[i]){
+          othis.find('.lay-ditem').eq(i).addClass(ACTIVE).siblings().removeClass(ACTIVE);
+        }
+      }
     });
   };
   //事件处理

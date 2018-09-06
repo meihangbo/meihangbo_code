@@ -6,21 +6,27 @@
     <link rel="stylesheet" type="text/css" href="../../assets/layui/css/layui.css">
     <style type="text/css">
       html,body{height:100%;}
-      .main{width:100%;height:100%;}
+      .header{position: fixed;top:0;left:0;z-index:999;width:100%;height: 80px;background-color: #fafafa;box-shadow: 0 2px 8px #f0f1f2;}
+      .header h2{line-height: 80px;text-align: center;}
+      .main{width: 100%;padding: 90px 0 70px;}
       .main-wrapper{position:relative;height:100%;}
-      .main-cont{position:relative;height:100%;margin-right:210px;background-color:#fefefe;}
-      .main-cont-nav{position:absolute;right:0;top:0;width:200px;height:100%;background-color:#ddd}
+      .main-cont{position:relative;height:100%;margin-right:210px;background-color:#fff;}
+      .main-cont-nav{position:absolute;right:0;top:0;width:200px;height:100%;background-color:#fff;}
       .main-cn-mod{position:relative;width:100%;overflow:auto;}
-
+      .footer{position: fixed;bottom:0;left:0;z-index:999;width:100%;height: 60px;background-color: #ddd;}
+      .footer p{line-height: 60px;text-align: center;color: #666;}
       /*
       * doc-list ******************************/
-      .doc-list{padding:50px 20px;}
+      .doc-list{padding:30px 20px;}
       .doc-item{}
       .doc-txt{padding: 0 20px;}
 
     </style>
   </head>
   <body>
+    <div class="header">
+      <h2>这里是头部</h2>
+    </div><!-- header -->
     <div class="main">
       <div class="main-wrapper">
         <div class="main-cont">
@@ -74,22 +80,46 @@
                 <p><img src="img/6.png" alt=""></p>
               </div>
             </div><!-- doc-item -->
+
+            <div class="doc-item">
+              <fieldset class="layui-elem-field layui-field-title site-title">
+                <legend title="异步数据接口" lay-dir-filter="directory">异步数据接口</legend>
+              </fieldset>
+              <div class="doc-txt">
+                <p><img src="img/7.png" alt=""></p>
+              </div>
+            </div><!-- doc-item -->
+
+            <div class="doc-item">
+              <fieldset class="layui-elem-field layui-field-title site-title">
+                <legend title="自定义列模板" lay-dir-filter="directory">自定义列模板</legend>
+              </fieldset>
+              <div class="doc-txt">
+                <p><img src="img/7.png" alt=""></p>
+              </div>
+            </div><!-- doc-item -->
+
           </div><!-- doc-list -->
         </div><!-- main-cont -->
         <div class="main-cont-nav">
           <div class="main-cn-mod">
             <ul class="lay-directory" id="layDir">
-              <li class="lay-ditem lay-ditem-active"><a class="lay-ditem-link lay-ditem-link-1" href="javascript:;" title="快速使用"><span>快速使用</span></a></li>
+              <li class="lay-ditem"><a class="lay-ditem-link lay-ditem-link-1" href="javascript:;" title="快速使用"><span>快速使用</span></a></li>
               <li class="lay-ditem"><a class="lay-ditem-link" href="javascript:;" title="渲染方式"><span>渲染方式</span></a></li>
               <li class="lay-ditem"><a class="lay-ditem-link lay-ditem-link-2" href="javascript:;" title="方法渲染"><span>方法渲染</span></a></li>
               <li class="lay-ditem"><a class="lay-ditem-link lay-ditem-link-2" href="javascript:;" title="自动渲染"><span>自动渲染</span></a></li>
               <li class="lay-ditem"><a class="lay-ditem-link" href="javascript:;" title="基础参数"><span>基础参数</span></a></li>
               <li class="lay-ditem"><a class="lay-ditem-link" href="javascript:;" title="表头参数"><span>表头参数</span></a></li>
+              <li class="lay-ditem"><a class="lay-ditem-link" href="javascript:;" title="异步数据接口"><span>异步数据接口</span></a></li>
+              <li class="lay-ditem"><a class="lay-ditem-link" href="javascript:;" title="自定义列模板"><span>自定义列模板</span></a></li>
             </ul><!-- lay-directory -->
           </div><!-- main-cn-mod -->
         </div><!-- main-cont-nav -->
       </div><!-- main-wrapper -->
     </div><!-- main -->
+    <div class="footer">
+      <p>版权所有 © 2009-2018 </p>
+    </div><!-- footer -->
     <script type="text/javascript" src="../../assets/layui/layui.js"></script>
     <script type="text/javascript">
       layui.config({
@@ -103,11 +133,7 @@
         var $ = layui.jquery,
           layDirectory = layui.layDirectory;
 
-        console.log(layDirectory);
-
-        layDirectory.render({
-          elem: '#layDir'
-        });
+        layDirectory.render({elem: '#layDir'});
       });
     </script>
   </body>
