@@ -2,99 +2,75 @@
 * @Author: meihangbo
 * @Date:   2018-09-05 09:49:32
 * @Last Modified by:   meihangbo
-* @Last Modified time: 2018-09-06 15:50:07
+* @Last Modified time: 2018-09-07 11:27:32
 */
 
-layui.define(['jquery'], function (exports){
+layui.define('jquery', function (exports){
   "use strict";
   var $ = layui.jquery,
-  // default
+
+  // 外部接口
   layDir = {
-    v: '0.0.1',
-    config: {} //全局配置项
+    config: {}, //外部接口
     //设置全局项
-    ,set: function(options){
-      var that = this;
-      that.config = $.extend({}, that.config, options);
-      return that;
-    }
+    set: function (opts){
+      console.log('设置全局项 set' + opts);
+    },
     //事件监听
-    ,on: function(events, callback){
-      return layui.onevent.call(this, MOD_NAME, events, callback);
+    on : function (events, callback){
+      console.log('事件监听 on' + opts);
     }
   },
 
+  // 实例
   thisLayDir = function (){
-    var that = this , opts = that.config;
+    var that = this, opts = that.config;
     return {config: opts};
   },
 
-  MOD_NAME = 'layDirectory',
-  ITEM = '.lay-ditem',
-  ILINK = '.lay-ditem-link',
-  ACTIVE = 'lay-ditem-active'
-
   // 构造
-  ,Class = function (opts){
+  LAYDIR = function (opts){
     var that = this;
     that.config = $.extend(true, that.config, layDir.config, opts);
+    console.log('LAYDIR 构造..');
+    console.log(that.config);
     that.render();
   };
 
   //默认配置
-  Class.prototype.config = {
-
+  LAYDIR.prototype.config = {
+    affix: true,
+    offsetTop: 0,
+    offsetBottom: 0,
+    scrollOffset: 0,
+    scrollContainer: '',
+    skin: ''
   };
-  Class.prototype.getPosArr = function (){
-    var arr = []
-    $('[lay-dir-filter="directory"]').each(function (){
-      arr.push($(this).offset().top);
-    });
-     return arr;
-  };
-  Class.prototype.render = function(){
-    var that = this , opts = that.config,
-      othis = $(opts.elem),
-      item = othis.find(ITEM),
-      _links = othis.find(ILINK),
-      posArr = that.getPosArr();
+  // 获取位置数组
+  LAYDIR.prototype.getPosArr = function (){};
+  // 渲染
+  LAYDIR.prototype.render = function (){
+    console.log('LAYDIR.prototype.render');
 
-    _links.on('click', function (){
-      var _that = $(this);
-      item.removeClass(ACTIVE);
-      _that.parent().addClass(ACTIVE);
-
-      var _dirEL = $('[lay-dir-filter="directory"][title="'+_that.text()+'"]'),
-      _offset = _dirEL.offset();
-      _offset&&$('html,body').animate({ scrollTop: _offset.top }, 500);
-    });
-
-    //
-
-    //监听window scroll
-    $(window).on('scroll', function (){
-      var $this = $(this), _tpos = $this.scrollTop();
-
-      for(var i in posArr){
-        //if(_tpos + $(window).width()/ 375 * 50 *1 >= posArr[i]){
-        if(_tpos >= posArr[i]){
-          othis.find('.lay-ditem').eq(i).addClass(ACTIVE).siblings().removeClass(ACTIVE);
-        }
-      }
-    });
-  };
-  //事件处理
-  Class.prototype.events = function (){
-    var that = this , opts = that.config;
-
+    var that = this, opts = that.config;
     console.log(that);
+    console.log(opts);
+
+
+
+  };
+
+  // 点击 目录项 事件
+  LAYDIR.prototype.dirClick = function (){
+
   };
 
 
-  // 入口
+
+
   layDir.render = function (opts){
-    var inst = new Class(opts);
-    return thisLayDir.call(inst);
+    console.log(opts);
+    return thisLayDir.call(new LAYDIR(opts));
   };
 
   exports('layDirectory', layDir);
